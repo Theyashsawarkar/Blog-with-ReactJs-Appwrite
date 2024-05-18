@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, RTE, Select } from "..";
+import authService from "../../appwrite/auth";
 import appwriteService from "../../appwrite/config";
 
 export default function PostForm({ post }) {
@@ -18,7 +18,21 @@ export default function PostForm({ post }) {
     });
 
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.auth.userData);
+  // const userData = useSelector((state) => state.auth.userData);
+
+  const [userData, setUserData] = useState(null);
+
+  //TODO: use the userdata from the store instead of the getCurrentUser
+  // -> this will speed up the process
+  // => the issue with this store approach is to update the store at log in and log out as they are class methods we can't call useDispatch there . handle that
+
+  useEffect(
+    () => async () => {
+      const temp = await authService.getCurrentUser();
+      setUserData(temp);
+    },
+    []
+  );
 
   const submit = async (data) => {
     if (post) {
@@ -39,14 +53,16 @@ export default function PostForm({ post }) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
+      console.log("data", data);
       const file = await appwriteService.uploadFile(data.image[0]);
 
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
+        console.log("userData", userData);
         const dbPost = await appwriteService.createPost({
           ...data,
-          userId: userData.$id,
+          userId: userData?.$id,
         });
 
         if (dbPost) {
