@@ -1,13 +1,11 @@
-
-// this way we prevent the case where there is some problem loading the enviroment variable and it makes code easy to write and beutifull to look at 
-// this practice helps alot in typescript too 
-
 const conf = {
-    appwriteUrl: String(import.meta.env.VITE_APPWRITE_URL),
-    appwriteProjectId: String(import.meta.env.VITE_APPWRITE_PROJECT_ID),
-    appwriteDatabaseId: String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
-    appwriteCollectionId: String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
-    appwriteBucketId: String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
-}
+  appwriteUrl: String(import.meta.env.VITE_APPWRITE_URL),
+  appwriteProjectId: String(import.meta.env.VITE_APPWRITE_PROJECT_ID),
+  appwriteDatabaseId: String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
+  appwriteCollectionId: String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
+  appwriteBucketId: String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
+  rteApiKey: String(import.meta.env.VITE_RTE_API_KEY),
+};
+// there was a name issue with the import.meta.env.VITE_APPWRITE_URL, it was later fixed in debugging video
 
-export default conf ;
+export default conf;
