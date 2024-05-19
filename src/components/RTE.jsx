@@ -7,7 +7,7 @@ import conf from "../conf/Conf.js";
 // https://react-hook-form.com/docs/usecontroller/controller
 // https://www.tiny.cloud/docs/tinymce/latest/react-ref/
 
-export default function RTE({ name, control, label, defaultValue = "" }) {
+export default function Rte({ name, control, label, defaultValue = "" }) {
   return (
     <div className="w-full">
       {label && <label className="inline-block mb-1 pl-1">{label}</label>}
