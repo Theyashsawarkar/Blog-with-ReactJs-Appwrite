@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import authService from "./Appwrite/Auth";
 import { login, logout } from "./Store/AuthSlice";
-import { Footer, Header } from "./components";
+import { Footer, Header } from "./components/Index";
 
 function App() {
   const [loading, setLoading] = useState(true);
