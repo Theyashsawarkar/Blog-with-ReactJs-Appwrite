@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Button, Input, RTE, Select } from "..";
+import { Button, Input, Rte, Select } from "..";
 import authService from "../../appwrite/auth";
 import appwriteService from "../../appwrite/config";
 
@@ -113,7 +113,7 @@ export default function PostForm({ post }) {
             });
           }}
         />
-        <RTE
+        <Rte
           label="Content :"
           name="content"
           control={control}
