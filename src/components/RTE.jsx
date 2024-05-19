@@ -1,24 +1,23 @@
 /* eslint-disable react/prop-types */
-import { Editor } from '@tinymce/tinymce-react';
-import { Controller } from 'react-hook-form';
-import conf from '../conf/conf';
+import { Editor } from "@tinymce/tinymce-react";
+import { Controller } from "react-hook-form";
+import conf from "../conf/conf.js";
 
-// for refernce read this 
+// for refernce read this
 // https://react-hook-form.com/docs/usecontroller/controller
 // https://www.tiny.cloud/docs/tinymce/latest/react-ref/
 
-
-export default function RTE({name, control, label, defaultValue =""}) {
+export default function RTE({ name, control, label, defaultValue = "" }) {
   return (
-    <div className='w-full'> 
-      {label && <label className='inline-block mb-1 pl-1'>{label}</label>}
+    <div className="w-full">
+      {label && <label className="inline-block mb-1 pl-1">{label}</label>}
 
       <Controller
         name={name || "content"}
         control={control}
-        render={({field: {onChange}}) => (
+        render={({ field: { onChange } }) => (
           <Editor
-          apiKey={conf.rteApiKey}
+            apiKey={conf.rteApiKey}
             initialValue={defaultValue}
             onEditorChange={onChange}
             init={{
@@ -48,14 +47,13 @@ export default function RTE({name, control, label, defaultValue =""}) {
                 "anchor",
               ],
               toolbar:
-              "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
-              content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+              content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}
           />
         )}
       />
-
     </div>
-  )
+  );
 }
-
