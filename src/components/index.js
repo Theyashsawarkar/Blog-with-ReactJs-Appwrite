@@ -1,5 +1,6 @@
 import AuthLayout from "./AuthLayout.jsx";
 import Button from "./Button.jsx";
+import Container from "./Container.jsx";
 import Footer from "./Footer/Footer.jsx";
 import Header from "./Header/Header.jsx";
 import LogoutBtn from "./Header/LogoutBtn.jsx";
@@ -10,7 +11,6 @@ import PostCard from "./PostCard.jsx";
 import Rte from "./Rte.jsx";
 import Select from "./Select.jsx";
 import Signup from "./Signup.jsx";
-import Container from "./Container/Container.jsx";
 import PostForm from "./post-form/PostForm.jsx";
 export {
   AuthLayout,
