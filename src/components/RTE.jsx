@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
-import conf from "../conf/conf.js";
+import conf from "../conf/Conf.js";
 
 // for refernce read this
 // https://react-hook-form.com/docs/usecontroller/controller

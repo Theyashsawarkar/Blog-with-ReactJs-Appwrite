@@ -1,5 +1,5 @@
 import { Account, Client, ID } from "appwrite";
-import conf from "../conf/conf.js";
+import Conf from "../conf/Conf.js";
 
 export class AuthService {
   client = new Client();
@@ -7,8 +7,8 @@ export class AuthService {
 
   constructor() {
     this.client
-      .setEndpoint(conf.appwriteUrl)
-      .setProject(conf.appwriteProjectId);
+      .setEndpoint(Conf.appwriteUrl)
+      .setProject(Conf.appwriteProjectId);
     this.account = new Account(this.client);
   }
 
