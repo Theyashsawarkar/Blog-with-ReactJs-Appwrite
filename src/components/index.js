@@ -8,10 +8,10 @@ import Input from "./Input.jsx";
 import Login from "./Login.jsx";
 import Logo from "./Logo.jsx";
 import PostCard from "./PostCard.jsx";
+import PostForm from "./PostForm.jsx";
 import Rte from "./Rte.jsx";
 import Select from "./Select.jsx";
 import Signup from "./Signup.jsx";
-import PostForm from "./post-form/PostForm.jsx";
 export {
   AuthLayout,
   Button,
