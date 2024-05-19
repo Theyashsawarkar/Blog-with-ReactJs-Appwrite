@@ -1,5 +1,5 @@
 import { Account, Client, ID } from "appwrite";
-import Conf from "../conf/Conf.js";
+import Conf from "../Conf/Conf.js";
 
 export class AuthService {
   client = new Client();

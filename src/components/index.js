@@ -10,7 +10,7 @@ import PostCard from "./PostCard.jsx";
 import Rte from "./Rte.jsx";
 import Select from "./Select.jsx";
 import Signup from "./Signup.jsx";
-import Container from "./container/Container.jsx";
+import Container from "./Container/Container.jsx";
 import PostForm from "./post-form/PostForm.jsx";
 export {
   AuthLayout,
