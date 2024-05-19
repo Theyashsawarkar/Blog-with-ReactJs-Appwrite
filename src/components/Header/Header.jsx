@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Logo, LogoutBtn } from "../Index";
+import { Container, Logo, LogoutBtn } from "..";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);

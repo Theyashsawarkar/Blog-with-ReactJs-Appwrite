@@ -1,4 +1,4 @@
-import { Container, PostForm } from "../components/Index";
+import { Container, PostForm } from "../components/index.js";
 
 function AddPost() {
   return (

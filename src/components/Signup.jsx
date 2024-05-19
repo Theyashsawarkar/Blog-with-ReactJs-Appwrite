@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../Appwrite/Auth.js";
-import { login } from "../Store/AuthSlice.js";
-import { Button, Input, Logo } from "./Index.js";
+import { login } from "../store/authSlice.js";
+import { Button, Input, Logo } from "./index.js";
 
 function Signup() {
   const navigate = useNavigate();

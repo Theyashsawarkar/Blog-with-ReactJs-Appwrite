@@ -2,9 +2,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import authService from "../../Appwrite/Auth";
-import appwriteService from "../../Appwrite/Config";
-import { Button, Input, Rte, Select } from "../Index";
+import { Button, Input, Rte, Select } from ".";
+import authService from "../appwrite/auth.js";
+import appwriteService from "../appwrite/config.js";
 
 export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =

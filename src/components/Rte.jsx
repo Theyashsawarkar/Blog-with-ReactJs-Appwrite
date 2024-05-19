@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
-import conf from "../Conf/Conf.js";
+import Conf from "../Conf/Conf.js";
 
 // for refernce read this
 // https://react-hook-form.com/docs/usecontroller/controller
@@ -17,7 +17,7 @@ export default function Rte({ name, control, label, defaultValue = "" }) {
         control={control}
         render={({ field: { onChange } }) => (
           <Editor
-            apiKey={conf.rteApiKey}
+            apiKey={Conf.rteApiKey}
             initialValue={defaultValue}
             onEditorChange={onChange}
             init={{
