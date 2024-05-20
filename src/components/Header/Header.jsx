@@ -35,7 +35,7 @@ function Header() {
   ];
 
   return (
-    <header className="py-3 shadow bg-black text-white">
+    <header className="py-3 shadow bg-black fixed right-1 text-white">
       <nav className="flex ">
         <ul className="flex gap-2 mt-3 ml-auto mr-10">
           {navItems.map((item) =>
@@ -43,7 +43,7 @@ function Header() {
               <Button
                 key={item.name}
                 clickHandler={() => navigate(item.slug)}
-                className="inline-bock mx-2 duration-200 hover:underline hover:text-xl border-white hover:text-yellow-300 "
+                className="inline-bock mx-2 duration-200 hover:underline hover:text-xl border-white hover:text-[#f97316] "
                 name={item.name}
               />
             ) : null
