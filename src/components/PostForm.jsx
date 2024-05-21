@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Rte, Select } from ".";
 import appwriteService from "../appwrite/config.js";
+import { addPosts } from "../store/postsSlice.js";
+import dsaTopics from "../utils/dsaTopics.js";
 
 export default function PostForm({ post }) {
+  const dispatch = useDispatch();
+
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -18,11 +22,6 @@ export default function PostForm({ post }) {
     });
 
   const navigate = useNavigate();
-  // const userData = useSelector((state) => state.auth.userData);
-
-  //TODO: use the userData from the store instead of the getCurrentUser
-  // -> this will speed up the process
-  // => the issue with this store approach is to update the store at log in and log out as they are class methods we can't call useDispatch there . handle that
 
   const userData = useSelector((state) => state.auth.userData);
 
@@ -57,6 +56,14 @@ export default function PostForm({ post }) {
           userId: userData.$id,
         });
 
+        appwriteService
+          .getPosts()
+          .then((postsList) => postsList.documents)
+          .then((posts) => dispatch(addPosts({ posts })))
+          .catch((error) =>
+            console.log("error while featching all the posts :: App ", error)
+          );
+
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
@@ -86,18 +93,21 @@ export default function PostForm({ post }) {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+    <form
+      onSubmit={handleSubmit(submit)}
+      className=" my-10 mt-20 flex flex-wrap"
+    >
       <div className="w-2/3 px-2">
         <Input
           label="Title :"
           placeholder="Title"
-          className="mb-4"
+          className="mb-4 px-3 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
           {...register("title", { required: true })}
         />
         <Input
           label="Slug :"
           placeholder="Slug"
-          className="mb-4"
+          className="mb-4 px-3 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
           {...register("slug", { required: true })}
           onInput={(e) => {
             setValue("slug", slugTransform(e.currentTarget.value), {
@@ -116,7 +126,7 @@ export default function PostForm({ post }) {
         <Input
           label="Featured Image :"
           type="file"
-          className="mb-4"
+          className="mb-4 px-3 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
         />
@@ -125,7 +135,7 @@ export default function PostForm({ post }) {
             <img
               src={appwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
-              className="rounded-lg"
+              className="rounded-lg text-gray-100"
             />
           </div>
         )}
@@ -135,13 +145,17 @@ export default function PostForm({ post }) {
           className="mb-4"
           {...register("status", { required: true })}
         />
+        <Select
+          options={dsaTopics}
+          label="Topic"
+          className="mb-4 bg-black"
+          {...register("topic", { required: true })}
+        />
         <Button
-          type="submit"
-          bgColor={post ? "bg-green-500" : undefined}
-          className="w-full"
-        >
-          {post ? "Update" : "Submit"}
-        </Button>
+          name={post ? "Update" : "Submit"}
+          className={`w-full bg-[#f97316] hover:text-gray-100 py-2 rounded-md font-serif `}
+          shouldPreventDefault={false}
+        />
       </div>
     </form>
   );
