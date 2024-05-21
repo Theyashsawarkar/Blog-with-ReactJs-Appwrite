@@ -31,42 +31,44 @@ export default function PostForm({ post }) {
         ? await appwriteService.uploadFile(data.image[0])
         : null;
 
-      if (file) {
+      if (post.featuredImage) {
         appwriteService.deleteFile(post.featuredImage);
       }
 
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featuredImage: file ? file.$id : undefined,
+        featuredImage: file ? file.$id : null,
       });
 
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      console.log("data", data);
-      const file = await appwriteService.uploadFile(data.image[0]);
+      const file = data.image[0]
+        ? await appwriteService.uploadFile(data.image[0])
+        : null;
 
-      if (file) {
-        const fileId = file.$id;
-        data.featuredImage = fileId;
-        console.log("userData", userData);
-        const dbPost = await appwriteService.createPost({
-          ...data,
-          userId: userData.$id,
-        });
+      const fileId = file ? file.$id : null;
+      data.featuredImage = fileId;
+      console.log("userData", userData);
+      console.log("Post-data", data);
+      const dbPost = await appwriteService.createPost({
+        ...data,
+        userId: userData.$id,
+      });
 
-        appwriteService
-          .getPosts()
-          .then((postsList) => postsList.documents)
-          .then((posts) => dispatch(addPosts({ posts })))
-          .catch((error) =>
-            console.log("error while featching all the posts :: App ", error)
-          );
+      console.log("db-post-data", dbPost);
 
-        if (dbPost) {
-          navigate(`/post/${dbPost.$id}`);
-        }
+      appwriteService
+        .getPosts()
+        .then((postsList) => postsList.documents)
+        .then((posts) => dispatch(addPosts({ posts })))
+        .catch((error) =>
+          console.log("error while featching all the posts :: App ", error)
+        );
+
+      if (dbPost) {
+        navigate(`/post/${dbPost.$id}`);
       }
     }
   };
@@ -128,7 +130,7 @@ export default function PostForm({ post }) {
           type="file"
           className="mb-4 px-3 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
           accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("image", { required: !post })}
+          {...register("image")}
         />
         {post && (
           <div className="w-full mb-4">

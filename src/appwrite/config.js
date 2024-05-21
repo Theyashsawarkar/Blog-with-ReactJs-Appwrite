@@ -19,7 +19,7 @@ export class Service {
     slug,
     topic,
     content,
-    featuredImage,
+    featuredImage = null,
     status,
     userId,
   }) {
@@ -42,7 +42,10 @@ export class Service {
     }
   }
 
-  async updatePost(slug, { title, content, topic, featuredImage, status }) {
+  async updatePost(
+    slug,
+    { title, content, topic, featuredImage = null, status }
+  ) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
