@@ -1,10 +1,14 @@
+import { useDispatch } from "react-redux";
 import logo from "../assets/logo.png";
 import ListPosts from "../components/ListPosts";
 import Options from "../components/Options";
+import { addActivePosts } from "../store/postsSlice";
 
 function Home() {
+  const dispatch = useDispatch();
+  dispatch(addActivePosts("Array"));
   return (
-    <div className="w-full min-h-[50vh] flex flex-col items-center">
+    <div className="w-full min-h-[50vh] h-auto flex flex-col items-center">
       <img src={logo} alt="logo" width={500} className=" mt-[-5rem] " />
       <span className="text-white text-3xl mt-[-5rem]">
         Your Roadmap to DSA Mastery
