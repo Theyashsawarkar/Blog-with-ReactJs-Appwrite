@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../appwrite/auth.js";
+import coloredLogo from "../assets/coloredLogo.png";
 import { login } from "../store/authSlice.js";
-import { Button, Input, Logo } from "./index.js";
+import { Button, Input } from "./index.js";
 
 function Signup() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function Signup() {
   const { register, handleSubmit } = useForm();
 
   const create = async (data) => {
+    console.log(data);
     setError("");
     try {
       const userData = await authService.createAccount(data);
@@ -28,21 +30,21 @@ function Signup() {
   return (
     <div className="flex items-center justify-center">
       <div
-        className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
+        className={`text-gray-100 bg-black mx-auto w-full max-w-lg  rounded-xl p-10`}
       >
-        <div className="mb-2 flex justify-center">
-          <span className="inline-block w-full max-w-[100px]">
-            <Logo width="100%" />
+        <div className="text-gray-100 bg-black mb-2 flex justify-center">
+          <span className="text-gray-100 bg-black inline-block w-full max-w-[100px]">
+            <img src={coloredLogo} alt="coloredLogo" />
           </span>
         </div>
-        <h2 className="text-center text-2xl font-bold leading-tight">
+        <h2 className="text-gray-100 bg-black text-center text-2xl font-bold leading-tight">
           Sign up to create account
         </h2>
-        <p className="mt-2 text-center text-base text-black/60">
+        <p className="mt-2 text-center text-base text-gray-100 bg-black">
           Already have an account?&nbsp;
           <Link
             to="/login"
-            className="font-medium text-primary transition-all duration-200 hover:underline"
+            className="font-medium text-gray-100 bg-black text-primary transition-all duration-200 hover:underline"
           >
             Sign In
           </Link>
@@ -50,8 +52,9 @@ function Signup() {
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
         <form onSubmit={handleSubmit(create)}>
-          <div className="space-y-5">
+          <div className=" bg-black space-y-5">
             <Input
+              className="login-input bg-black text-white"
               label="Full Name: "
               placeholder="Enter your full name"
               {...register("name", {
@@ -59,6 +62,7 @@ function Signup() {
               })}
             />
             <Input
+              className="login-input bg-black text-white"
               label="Email: "
               placeholder="Enter your email"
               type="email"
@@ -73,13 +77,17 @@ function Signup() {
             />
             <Input
               label="Password: "
+              className="login-input bg-black text-white"
               type="password"
               placeholder="Enter your password"
               {...register("password", { required: true })}
             />
-            <Button type="submit" className="w-full">
-              Create Account
-            </Button>
+            <Button
+              type="submit"
+              shouldPreventDefault={false}
+              className="w-full text-black hover:text-gray-100 font-serif font-bold bg-[#f97316] py-2 rounded-md"
+              name={"Create Account"}
+            />
           </div>
         </form>
       </div>
