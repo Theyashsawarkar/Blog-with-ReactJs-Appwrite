@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 export default function Button({
   name,
-  clickHandler,
+  clickHandler = () => {},
   className = "",
+  shouldPreventDefault = true,
   ...props
 }) {
   return (
     <button
       onClick={(e) => {
-        e.preventDefault();
+        shouldPreventDefault ? e.preventDefault() : null;
         clickHandler();
       }}
       className={className}
