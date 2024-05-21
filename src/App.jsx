@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import authService from "./appwrite/auth.js";
+import appwriteService from "./appwrite/config.js";
 import { Footer, Header } from "./components/index.js";
 import { login, logout } from "./store/authSlice.js";
+import { addPosts } from "./store/postsSlice.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // get the current user if loged in
     authService
       .getCurrentUser()
       .then((userData) => {
@@ -20,9 +23,19 @@ function App() {
           dispatch(logout());
         }
       })
-      .catch((error) => console.log("app.jsx :: useEffect ::", error))
+      .catch((error) => console.log("app.jsx :: useEffect ::", error));
+
+    // load all the posts
+    appwriteService
+      .getPosts()
+      .then((postsList) => postsList.documents)
+      .then((posts) => dispatch(addPosts({ posts })))
+      .catch((error) =>
+        console.log("error while featching all the posts :: App ", error)
+      )
       .finally(() => setLoading(false));
-  }, []);
+    [];
+  });
 
   return !loading ? (
     <div className="m-0 h-screen  flex flex-wrap content-between bg-black">
