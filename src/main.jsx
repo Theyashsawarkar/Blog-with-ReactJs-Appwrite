@@ -8,10 +8,10 @@ import "./index.css";
 
 // pages
 import AddPost from "./pages/AddPost";
-import AllPosts from "./pages/AllPosts";
 import EditPost from "./pages/EditPost";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
+import MyPosts from "./pages/MyPosts";
 import Post from "./pages/Post";
 import Signup from "./pages/Signup";
 import store from "./store/store.js";
@@ -42,11 +42,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/all-posts",
+        path: "/my-posts",
         element: (
           <AuthLayout authentication>
             {" "}
-            <AllPosts />
+            <MyPosts />
           </AuthLayout>
         ),
       },
