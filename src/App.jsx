@@ -38,8 +38,8 @@ function App() {
   });
 
   return !loading ? (
-    <div className="m-0 h-screen  flex flex-wrap content-between bg-black">
-      <div className="w-full mx-auto block">
+    <div className="m-0 min-h-screen flex flex-wrap content-between bg-black">
+      <div className="w-full h-auto overflow-auto mx-auto block">
         <Header />
         <Outlet />
         <Footer />
