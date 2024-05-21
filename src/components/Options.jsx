@@ -9,11 +9,12 @@ function Options() {
     <div className=" flex flex-wrap justify-center ">
       {dsaTopics.map((topic) => (
         <Button
-          clickHandler={dispatch(addActivePosts(topic))}
+          clickHandler={() => {
+            console.log(topic);
+            dispatch(addActivePosts(topic));
+          }}
           key={topic}
           name={topic}
-          bgColor="black"
-          textColor="white"
           className="inline-bock mx-2 duration-200 mt-3 text-[1.1rem] text-white border hover:text-black hover:bg-[white] hover:font-bold border-white rounded-md px-4"
         />
       ))}
