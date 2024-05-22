@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { LogoutBtn } from "..";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
-  const navigate = useNavigate();
 
   const navItems = [
     {
