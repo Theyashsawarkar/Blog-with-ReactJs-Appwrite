@@ -4,6 +4,7 @@ const initialState = {
   allPosts: [],
   activePosts: [],
   myPosts: [],
+  activeTopic: "Array",
 };
 
 const postsSlice = createSlice({
@@ -20,6 +21,7 @@ const postsSlice = createSlice({
     },
     addActivePosts: (state, action) => {
       const topic = action.payload;
+      state.activeTopic = topic;
       console.log("action", action.payload);
       console.log("state", state.activePosts);
       if (Array.isArray(state.allPosts)) {
