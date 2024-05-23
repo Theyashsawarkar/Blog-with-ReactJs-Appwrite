@@ -6,8 +6,8 @@ function MyPosts() {
 
   const allPosts = useSelector((state) => state.post.allPosts);
   const myPosts = allPosts.filter((post) => post.userId === currentUser?.$id);
-  console.log("posts : ", myPosts);
-  console.log("user :: ", currentUser);
+  // console.log("posts : ", myPosts);
+  // console.log("user :: ", currentUser);
   return myPosts.length === 0 ? (
     <div className="w-full min-h-[50vh] my-5 flex items-center">
       <h1 className="text-center text-[5rem] w-full font-bold">No Posts yet</h1>
