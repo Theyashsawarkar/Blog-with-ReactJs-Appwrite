@@ -7,7 +7,7 @@ function ListPosts() {
   console.log("active Posts ::", activePosts);
 
   return (
-    <div className="flex justify-center flex-wrap w-[90%] mt-10">
+    <div className="flex justify-center min-h-[50vh] items-center flex-wrap w-[90%] mt-10">
       {activePosts.length === 0 ? (
         <h1 className="text-white text-8xl font-serif mb-10 ">
           No posts yet For {activeTopic}{" "}
