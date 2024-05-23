@@ -10,7 +10,9 @@ import { addPosts } from "../store/postsSlice.js";
 import dsaTopics from "../utils/dsaTopics.js";
 
 export default function PostForm({ post }) {
+  const [clicked, setCLicked] = useState(false);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => setLoading(false), [loading]);
 
   const dispatch = useDispatch();
@@ -78,9 +80,9 @@ export default function PostForm({ post }) {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className=" my-24 flex w-[70vw] flex-wrap"
+      className=" items-center gap-5 flex w-[90vw] h-[90vh] mx-auto"
     >
-      <div className="w-[50%] h-full px-2">
+      <div className="w-[50%]">
         <Input
           label="Title :"
           placeholder="Title"
@@ -95,7 +97,7 @@ export default function PostForm({ post }) {
           defaultValue={getValues("description")}
         />
       </div>
-      <div className="w-[50%] px-2">
+      <div className="w-[50%]">
         <textarea
           rows={17}
           label="Code :"
@@ -111,7 +113,7 @@ export default function PostForm({ post }) {
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image")}
         />
-        {post && (
+        {post.featuredImage && (
           <div className="w-full mb-4">
             <img
               src={appwriteService.getFilePreview(post.featuredImage)}
@@ -124,18 +126,19 @@ export default function PostForm({ post }) {
           <Select
             options={["active", "inactive"]}
             label="Status"
-            className="mb-4"
+            className="mb-5"
             {...register("status", { required: true })}
           />
           <Select
             options={dsaTopics}
             label="Topic"
-            className="mb-4 text-gray-100 bg-black"
+            className="mb-5 text-gray-100 bg-black"
             {...register("topic", { required: true })}
           />
         </div>
         <Button
-          name={post ? "Update" : "Submit"}
+          clickHandler={() => setCLicked(true)}
+          name={clicked ? "Loading..." : post ? "Update" : "Submit"}
           className={`w-full bg-[#f97316] hover:text-gray-100 py-2 rounded-md font-serif `}
           shouldPreventDefault={false}
         />

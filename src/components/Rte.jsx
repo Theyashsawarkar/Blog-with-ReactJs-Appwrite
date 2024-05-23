@@ -24,7 +24,7 @@ export default function Rte({ name, control, label, defaultValue = "" }) {
             onEditorChange={onChange}
             init={{
               initialValue: defaultValue,
-              height: 500,
+              height: 600,
               menubar: true,
               plugins: [
                 "image",
@@ -37,17 +37,15 @@ export default function Rte({ name, control, label, defaultValue = "" }) {
                 "anchor",
                 "searchreplace",
                 "visualblocks",
-                "codesample",
                 "fullscreen",
                 "insertdatetime",
                 "media",
                 "table",
-                "code",
                 "help",
                 "wordcount",
               ],
               toolbar:
-                "fullscreen | code| codesample | undo redo | blocks | image | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+                " undo redo | blocks | image | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
               skin: "oxide-dark",
               content_css: "dark",
               content_style:
