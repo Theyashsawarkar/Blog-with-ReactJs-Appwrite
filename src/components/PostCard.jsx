@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import appwriteService from "../appwrite/config.js";
 
 function PostCard({ $id, title, featuredImage }) {
-  console.log("img", featuredImage);
   return (
     <Link to={`/post/${$id}`}>
       <div className="w-full flex flex-col justify-center items-center hover:bg-gray-900 duration-200 bg-gray-950 border-gray-500 border text-white rounded-xl p-4">

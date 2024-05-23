@@ -4,10 +4,9 @@ import { PostCard } from "../components/index.js";
 function ListPosts() {
   const activePosts = useSelector((state) => state.post.activePosts);
   const activeTopic = useSelector((state) => state.post.activeTopic);
-  console.log("active Posts ::", activePosts);
 
   return (
-    <div className="flex justify-center min-h-[50vh] items-center flex-wrap w-[90%] mt-10">
+    <div className="flex justify-center items-baseline min-h-[50vh]  flex-wrap w-[90%] mt-10">
       {activePosts.length === 0 ? (
         <h1 className="text-white text-8xl font-serif mb-10 ">
           No posts yet For {activeTopic}{" "}

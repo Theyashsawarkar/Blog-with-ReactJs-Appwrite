@@ -14,7 +14,7 @@ const postsSlice = createSlice({
     addPosts: (state, action) => {
       // Ensure payload is an array
       if (!Array.isArray(action.payload.posts)) {
-        console.error("addPosts: Payload must be an array of posts");
+        console.error("addPosts slice: Payload must be an array of posts");
         return; // Or throw an error if preferred
       }
       state.allPosts = action.payload.posts;
@@ -22,8 +22,6 @@ const postsSlice = createSlice({
     addActivePosts: (state, action) => {
       const topic = action.payload;
       state.activeTopic = topic;
-      console.log("action", action.payload);
-      console.log("state", state.activePosts);
       if (Array.isArray(state.allPosts)) {
         state.activePosts = state.allPosts.filter(
           (post) => post.topic === topic
