@@ -20,9 +20,10 @@ export default function PostForm({ post }) {
   const { register, handleSubmit, control, getValues } = useForm({
     defaultValues: {
       title: post?.title || "",
-      slug: post?.$id || "",
-      content: post?.content || "",
+      description: post?.description || "",
       status: post?.status || "active",
+      topic: post?.topic || "Array",
+      code: post?.code || "",
     },
   });
 
