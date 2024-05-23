@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 import { Button, Input, Rte, Select } from ".";
 import appwriteService from "../appwrite/config.js";
 import { addPosts } from "../store/postsSlice.js";
 import dsaTopics from "../utils/dsaTopics.js";
 
 export default function PostForm({ post }) {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => setLoading(false), [loading]);
+
   const dispatch = useDispatch();
 
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -26,6 +30,7 @@ export default function PostForm({ post }) {
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
+    setLoading(true);
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
@@ -67,6 +72,8 @@ export default function PostForm({ post }) {
           console.log("error while featching all the posts :: App ", error)
         );
 
+      setLoading(false);
+
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
@@ -94,12 +101,26 @@ export default function PostForm({ post }) {
     return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
 
+  if (loading) {
+    return (
+      <div className="w-[80vw] mx-auto h-[90vh] flex justify-center items-center">
+        <HashLoader
+          color={"white"}
+          loading={!post}
+          size={150}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
+  }
+
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className=" my-10 mt-20 flex flex-wrap"
+      className=" my-24 flex w-[70vw] flex-wrap"
     >
-      <div className="w-2/3 px-2">
+      <div className="w-[50%] h-full px-2">
         <Input
           label="Title :"
           placeholder="Title"
@@ -118,13 +139,21 @@ export default function PostForm({ post }) {
           }}
         />
         <Rte
-          label="Content :"
-          name="content"
+          label="Description :"
+          name="description"
           control={control}
-          defaultValue={getValues("content")}
+          defaultValue={getValues("description")}
         />
       </div>
-      <div className="w-1/3 px-2">
+      <div className="w-[50%] px-2">
+        <textarea
+          rows={17}
+          label="Code :"
+          type="textarea"
+          placeholder="Paste your code here ..."
+          className="mb-4 px-3 mt-6 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
+          {...register("code", { required: true })}
+        />
         <Input
           label="Featured Image :"
           type="file"
@@ -141,18 +170,20 @@ export default function PostForm({ post }) {
             />
           </div>
         )}
-        <Select
-          options={["active", "inactive"]}
-          label="Status"
-          className="mb-4"
-          {...register("status", { required: true })}
-        />
-        <Select
-          options={dsaTopics}
-          label="Topic"
-          className="mb-4 bg-black"
-          {...register("topic", { required: true })}
-        />
+        <div className="flex gap-5">
+          <Select
+            options={["active", "inactive"]}
+            label="Status"
+            className="mb-4"
+            {...register("status", { required: true })}
+          />
+          <Select
+            options={dsaTopics}
+            label="Topic"
+            className="mb-4 text-gray-100 bg-black"
+            {...register("topic", { required: true })}
+          />
+        </div>
         <Button
           name={post ? "Update" : "Submit"}
           className={`w-full bg-[#f97316] hover:text-gray-100 py-2 rounded-md font-serif `}
