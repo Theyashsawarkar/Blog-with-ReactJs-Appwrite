@@ -6,14 +6,14 @@ function ListPosts() {
   const activeTopic = useSelector((state) => state.post.activeTopic);
 
   return (
-    <div className="flex justify-center items-baseline min-h-[50vh]  flex-wrap w-[90%] mt-10">
+    <div className="flex justify-center items-start min-h-[50vh]  flex-wrap w-[90%] mt-10">
       {activePosts.length === 0 ? (
         <h1 className="text-white text-8xl font-serif mb-10 ">
           No posts yet For {activeTopic}{" "}
         </h1>
       ) : (
         activePosts.map((post) => (
-          <div key={post.$id} className="p-2 w-1/5 ">
+          <div key={post.$id} className="p-2 w-1/5">
             <PostCard {...post} />
           </div>
         ))
