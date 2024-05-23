@@ -17,8 +17,9 @@ export class Service {
   async createPost({
     title,
     slug,
+    code,
     topic,
-    content,
+    description,
     featuredImage = null,
     status,
     userId,
@@ -30,7 +31,8 @@ export class Service {
         slug,
         {
           title,
-          content,
+          description,
+          code,
           topic,
           featuredImage,
           status,
@@ -44,7 +46,7 @@ export class Service {
 
   async updatePost(
     slug,
-    { title, content, topic, featuredImage = null, status }
+    { title, description, code, topic, featuredImage = null, status }
   ) {
     try {
       return await this.databases.updateDocument(
@@ -53,7 +55,8 @@ export class Service {
         slug,
         {
           title,
-          content,
+          description,
+          code,
           topic,
           featuredImage,
           status,
