@@ -10,11 +10,11 @@ function PostCard({ $id, title, featuredImage }) {
           {title.length > 50 ? title.slice(0, 42) + "..." : title}
         </h2>
         {featuredImage && (
-          <div className="overflow-hidden ">
+          <div className="overflow-hidden box-border w-2/3 ">
             <img
               src={appwriteService.getFilePreview(featuredImage)}
               alt={title}
-              className="rounded-xl mx-auto object-contain"
+              className=" outline mb-1 my-1 rounded-xl mx-auto object-contain"
             />
           </div>
         )}

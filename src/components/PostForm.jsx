@@ -10,8 +10,10 @@ import { addPosts } from "../store/postsSlice.js";
 import dsaTopics from "../utils/dsaTopics.js";
 
 export default function PostForm({ post }) {
+  const [toggleImage, setToggleImage] = useState(false);
   const [clicked, setCLicked] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [deleteImage, setDeleteImage] = useState(false);
 
   useEffect(() => setLoading(false), [loading]);
 
@@ -37,7 +39,7 @@ export default function PostForm({ post }) {
         ? await appwriteService.uploadFile(data.image[0])
         : null;
 
-      if (post.featuredImage) {
+      if (post?.featuredImage && (file || deleteImage)) {
         appwriteService.deleteFile(post.featuredImage);
       }
 
@@ -81,7 +83,7 @@ export default function PostForm({ post }) {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className=" items-center gap-5 flex w-[90vw] h-[90vh] mx-auto"
+      className=" items-center gap-5 flex w-[90vw] min-h-[90vh] mx-auto"
     >
       <div className="w-[50%]">
         <Input
@@ -107,22 +109,34 @@ export default function PostForm({ post }) {
           className="mb-4 px-3 mt-6 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
           {...register("code", { required: true })}
         />
-        <Input
-          label="Featured Image :"
-          type="file"
-          className="mb-4 px-3 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("image")}
-        />
-        {post.featuredImage && (
-          <div className="w-full mb-4">
-            <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
-              alt={post.title}
-              className="rounded-lg text-gray-100"
-            />
-          </div>
-        )}
+        <div
+          className={`${post?.featuredImage ? "flex gap-10 items-center" : ""}`}
+        >
+          <Input
+            label="Featured Image :"
+            type="file"
+            className={`mb-4 px-3 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full`}
+            accept="image/png, image/jpg, image/jpeg, image/gif"
+            {...register("image")}
+          />
+          {post?.featuredImage && !deleteImage && (
+            <div className=" text-white flex items-start gap-5 text-[1.5rem] w-full mb-4">
+              <img
+                src={appwriteService.getFilePreview(post?.featuredImage)}
+                alt={post.title}
+                onClick={() => setToggleImage((prev) => !prev)}
+                className={`w-52 outline rounded-lg text-gray-100 ${
+                  toggleImage
+                    ? "absolute w-[60vw] top-40 right-[20vw] z-10"
+                    : ""
+                }`}
+              />
+              <div onClick={() => setDeleteImage(true)}>
+                <ion-icon name="trash-outline"></ion-icon>
+              </div>
+            </div>
+          )}
+        </div>
         <div className="flex gap-5">
           <Select
             options={["active", "inactive"]}

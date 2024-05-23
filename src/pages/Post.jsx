@@ -66,7 +66,15 @@ export default function Post() {
         </div>
         <div>
           <div className="w-full mb-6">
-            <h1 className="text-2xl text-gray-100 font-bold">{post.title}</h1>
+            <h1
+              className={`${
+                post?.featuredImage
+                  ? "text-2xl text-gray-100 h-auto overflow-hidden font-bold"
+                  : "mt-20 text-2xl text-gray-100 h-auto overflow-hidden font-bold"
+              }`}
+            >
+              {post.title}
+            </h1>
           </div>
           <div className=" text-gray-100 browser-css">
             {parse(post.description)}
