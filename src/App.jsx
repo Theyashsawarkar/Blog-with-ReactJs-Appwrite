@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 import authService from "./appwrite/auth.js";
 import appwriteService from "./appwrite/config.js";
 import { Footer, Header } from "./components/index.js";
@@ -45,7 +46,17 @@ function App() {
         <Footer />
       </div>
     </div>
-  ) : null;
+  ) : (
+    <div className="w-[80vw] mx-auto h-[90vh] flex justify-center items-center">
+      <HashLoader
+        color={"white"}
+        loading={loading}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    </div>
+  );
 }
 
 export default App;
