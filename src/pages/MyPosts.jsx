@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import empty_meme from "../assets/empty_meme.png";
 import { PostCard } from "../components";
 
 function MyPosts() {
@@ -9,8 +10,12 @@ function MyPosts() {
   // console.log("posts : ", myPosts);
   // console.log("user :: ", currentUser);
   return myPosts.length === 0 ? (
-    <div className="w-full min-h-[50vh] my-5 flex items-center">
-      <h1 className="text-center text-[5rem] w-full font-bold">No Posts yet</h1>
+    <div className="my-5 justify-center flex items-center">
+      <img
+        className="w-[20%] my-[8%] rounded-2xl"
+        src={empty_meme}
+        alt="emtpy_meme"
+      />
     </div>
   ) : (
     <div className=" my-10 min-h-[80vh] flex flex-wrap justify-center mt-20 items-center ">
