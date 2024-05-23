@@ -7,8 +7,6 @@ function MyPosts() {
 
   const allPosts = useSelector((state) => state.post.allPosts);
   const myPosts = allPosts.filter((post) => post.userId === currentUser?.$id);
-  // console.log("posts : ", myPosts);
-  // console.log("user :: ", currentUser);
   return myPosts.length === 0 ? (
     <div className="my-5 justify-center flex items-center">
       <img
@@ -18,7 +16,7 @@ function MyPosts() {
       />
     </div>
   ) : (
-    <div className=" my-10 min-h-[80vh] flex flex-wrap justify-center mt-20 items-center ">
+    <div className="w-[80%] mx-auto min-h-screen pt-32 flex flex-wrap justify-center items-center ">
       {myPosts.map((post) => (
         <div key={post.$id} className="p-2 w-1/4">
           <PostCard {...post} />
