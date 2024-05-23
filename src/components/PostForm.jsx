@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { useCallback, useEffect, useState } from "react";
+import { ID } from "appwrite";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import HashLoader from "react-spinners/HashLoader";
 import { Button, Input, Rte, Select } from ".";
 import appwriteService from "../appwrite/config.js";
 import { addPosts } from "../store/postsSlice.js";
@@ -15,22 +15,20 @@ export default function PostForm({ post }) {
 
   const dispatch = useDispatch();
 
-  const { register, handleSubmit, watch, setValue, control, getValues } =
-    useForm({
-      defaultValues: {
-        title: post?.title || "",
-        slug: post?.$id || "",
-        content: post?.content || "",
-        status: post?.status || "active",
-      },
-    });
+  const { register, handleSubmit, control, getValues } = useForm({
+    defaultValues: {
+      title: post?.title || "",
+      slug: post?.$id || "",
+      content: post?.content || "",
+      status: post?.status || "active",
+    },
+  });
 
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
-    setLoading(true);
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
@@ -55,14 +53,13 @@ export default function PostForm({ post }) {
 
       const fileId = file ? file.$id : null;
       data.featuredImage = fileId;
-      console.log("userData", userData);
-      console.log("Post-data", data);
+
+      const slug = ID.unique();
       const dbPost = await appwriteService.createPost({
         ...data,
+        slug,
         userId: userData.$id,
       });
-
-      console.log("db-post-data", dbPost);
 
       appwriteService
         .getPosts()
@@ -72,48 +69,11 @@ export default function PostForm({ post }) {
           console.log("error while featching all the posts :: App ", error)
         );
 
-      setLoading(false);
-
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     }
   };
-
-  const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string")
-      return value
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-");
-
-    return "";
-  }, []);
-
-  React.useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name === "title") {
-        setValue("slug", slugTransform(value.title), { shouldValidate: true });
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [watch, slugTransform, setValue]);
-
-  if (loading) {
-    return (
-      <div className="w-[80vw] mx-auto h-[90vh] flex justify-center items-center">
-        <HashLoader
-          color={"white"}
-          loading={!post}
-          size={150}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-      </div>
-    );
-  }
 
   return (
     <form
@@ -127,17 +87,7 @@ export default function PostForm({ post }) {
           className="mb-4 px-3 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
           {...register("title", { required: true })}
         />
-        <Input
-          label="Slug :"
-          placeholder="Slug"
-          className="mb-4 px-3 bg-black py-2 rounded-lg hover:bg-gray-950 text-gray-100 focus:bg-gray-900 duration-200 border w-full"
-          {...register("slug", { required: true })}
-          onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
-              shouldValidate: true,
-            });
-          }}
-        />
+
         <Rte
           label="Description :"
           name="description"
