@@ -12,9 +12,10 @@ function Login() {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState("Sign in");
 
   const login = async (data) => {
+    setClicked("Signing In...");
     setError("");
     try {
       const session = await authService.login(data);
@@ -77,11 +78,21 @@ function Login() {
               })}
             />
             <Button
-              className="w-full font-bold font-serif hover:text-white duration-200 bg-[#f97316] py-2 rounded-md"
+              className={`w-full text-black hover:text-gray-100 font-serif font-bold  py-2 rounded-md ${
+                clicked === "All feilds are required"
+                  ? " bg-red-800"
+                  : "bg-[#f97316]"
+              } `}
               shouldPreventDefault={false}
-              clickHandler={() => setClicked(true)}
+              clickHandler={() => {
+                setClicked("All feilds are required");
+                let timeOut = setTimeout(() => {
+                  setClicked("Sign in");
+                  clearTimeout(timeOut);
+                }, 3000);
+              }}
               type="submit"
-              name={clicked ? "Signing Up..." : "Sign in"}
+              name={clicked}
             />
           </div>
         </form>

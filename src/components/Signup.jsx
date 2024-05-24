@@ -12,9 +12,10 @@ function Signup() {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState("Create Account");
 
   const create = async (data) => {
+    setClicked("Creating Account...");
     console.log(data);
     setError("");
     try {
@@ -86,9 +87,19 @@ function Signup() {
             <Button
               type="submit"
               shouldPreventDefault={false}
-              className="w-full text-black hover:text-gray-100 font-serif font-bold bg-[#f97316] py-2 rounded-md"
-              clickHandler={() => setClicked(true)}
-              name={clicked ? "Creating Account..." : "Create Account"}
+              className={`w-full text-black hover:text-gray-100 font-serif font-bold  py-2 rounded-md ${
+                clicked === "All feilds are required"
+                  ? " bg-red-800"
+                  : "bg-[#f97316]"
+              }`}
+              clickHandler={() => {
+                setClicked("All feilds are required");
+                let timeOut = setTimeout(() => {
+                  setClicked("Create Account");
+                  clearTimeout(timeOut);
+                }, 3000);
+              }}
+              name={clicked}
             />
           </div>
         </form>

@@ -11,7 +11,7 @@ import dsaTopics from "../utils/dsaTopics.js";
 
 export default function PostForm({ post }) {
   const [toggleImage, setToggleImage] = useState(false);
-  const [clicked, setCLicked] = useState(false);
+  const [clicked, setClicked] = useState(post ? "Update" : "Submit");
   const [loading, setLoading] = useState(true);
   const [deleteImage, setDeleteImage] = useState(false);
 
@@ -34,6 +34,7 @@ export default function PostForm({ post }) {
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
+    setClicked("Uploading...");
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
@@ -152,9 +153,19 @@ export default function PostForm({ post }) {
           />
         </div>
         <Button
-          clickHandler={() => setCLicked(true)}
-          name={clicked ? "Loading..." : post ? "Update" : "Submit"}
-          className={`w-full bg-[#f97316] hover:text-gray-100 py-2 rounded-md font-serif `}
+          clickHandler={() => {
+            setClicked("All feilds are required");
+            let timeOut = setTimeout(() => {
+              setClicked(post ? "Update" : "Submit");
+              clearTimeout(timeOut);
+            }, 3000);
+          }}
+          name={clicked}
+          className={`w-full ${
+            clicked === "All feilds are required"
+              ? " bg-red-800 cursor-not-allowed"
+              : "bg-[#f97316]"
+          } hover:text-gray-100 py-2 rounded-md font-serif `}
           shouldPreventDefault={false}
         />
       </div>
