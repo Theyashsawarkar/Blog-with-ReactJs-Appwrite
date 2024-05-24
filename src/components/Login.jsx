@@ -12,6 +12,7 @@ function Login() {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   const login = async (data) => {
     setError("");
@@ -78,8 +79,9 @@ function Login() {
             <Button
               className="w-full font-bold font-serif hover:text-white duration-200 bg-[#f97316] py-2 rounded-md"
               shouldPreventDefault={false}
+              clickHandler={() => setClicked(true)}
               type="submit"
-              name={"Sign in"}
+              name={clicked ? "Signing Up..." : "Sign in"}
             />
           </div>
         </form>

@@ -12,6 +12,7 @@ function Signup() {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
+  const [clicked, setClicked] = useState(false);
 
   const create = async (data) => {
     console.log(data);
@@ -86,7 +87,8 @@ function Signup() {
               type="submit"
               shouldPreventDefault={false}
               className="w-full text-black hover:text-gray-100 font-serif font-bold bg-[#f97316] py-2 rounded-md"
-              name={"Create Account"}
+              clickHandler={() => setClicked(true)}
+              name={clicked ? "Creating Account..." : "Create Account"}
             />
           </div>
         </form>
