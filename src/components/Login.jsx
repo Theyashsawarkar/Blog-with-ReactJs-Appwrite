@@ -6,6 +6,7 @@ import { Button, Input } from ".";
 import authService from "../appwrite/auth.js";
 import coloredLogo from "../assets/coloredLogo.png";
 import { login as authLogin } from "../store/authSlice";
+import { addMyPosts } from "../store/postsSlice.js";
 
 function Login() {
   const navigate = useNavigate();
@@ -21,7 +22,10 @@ function Login() {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(authLogin(userData));
+        if (userData) {
+          dispatch(authLogin(userData));
+          dispatch(addMyPosts(userData.$id));
+        }
         navigate("/");
       }
     } catch (error) {

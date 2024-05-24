@@ -3,10 +3,7 @@ import empty_meme from "../assets/empty_meme.png";
 import { PostCard } from "../components";
 
 function MyPosts() {
-  const currentUser = useSelector((state) => state.auth.userData);
-
-  const allPosts = useSelector((state) => state.post.allPosts);
-  const myPosts = allPosts.filter((post) => post.userId === currentUser?.$id);
+  const myPosts = useSelector((state) => state.post.myPosts);
   return myPosts.length === 0 ? (
     <div className="my-5 justify-center flex items-center">
       <img
