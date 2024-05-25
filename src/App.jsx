@@ -6,7 +6,7 @@ import HashLoader from "react-spinners/HashLoader";
 import authService from "./appwrite/auth.js";
 import appwriteService from "./appwrite/config.js";
 import { Footer, Header } from "./components/index.js";
-import { login, logout } from "./store/authSlice.js";
+import { login } from "./store/authSlice.js";
 import { addMyPosts, addPosts } from "./store/postsSlice.js";
 
 function App() {
@@ -19,10 +19,8 @@ function App() {
       .getCurrentUser()
       .then((userData) => {
         if (userData) {
-          dispatch(login({ userData }));
+          dispatch(login(userData));
           dispatch(addMyPosts(userData.$id));
-        } else {
-          dispatch(logout());
         }
       })
       .catch((error) => console.log("app.jsx :: useEffect ::", error));

@@ -34,7 +34,7 @@ function Header() {
   ];
 
   return (
-    <header className="py-3 shadow bg-black fixed right-1 text-white">
+    <header className="py-3 z-50 shadow bg-black w-full fixed right-1 text-white">
       <nav className="flex ">
         <ul className="flex gap-2 mt-3 ml-auto mr-10">
           {navItems.map((item) =>

@@ -17,6 +17,9 @@ export default function PostForm({ post }) {
 
   useEffect(() => setLoading(false), [loading]);
 
+  const userData = useSelector((state) => state.auth.userData);
+  console.log("userdata :: postForm", userData);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { register, handleSubmit, control, getValues } = useForm({
@@ -28,10 +31,6 @@ export default function PostForm({ post }) {
       code: post?.code || "",
     },
   });
-
-  const navigate = useNavigate();
-
-  const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
     setClicked("Uploading...");
@@ -132,7 +131,10 @@ export default function PostForm({ post }) {
                     : ""
                 }`}
               />
-              <div onClick={() => setDeleteImage(true)}>
+              <div
+                className=" cursor-pointer text-red-600"
+                onClick={() => setDeleteImage(true)}
+              >
                 <ion-icon name="trash-outline"></ion-icon>
               </div>
             </div>
