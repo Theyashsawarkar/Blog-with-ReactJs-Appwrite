@@ -7,7 +7,7 @@ import authService from "./appwrite/auth.js";
 import appwriteService from "./appwrite/config.js";
 import { Footer, Header } from "./components/index.js";
 import { login, logout } from "./store/authSlice.js";
-import { addPosts } from "./store/postsSlice.js";
+import { addMyPosts, addPosts } from "./store/postsSlice.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -20,6 +20,7 @@ function App() {
       .then((userData) => {
         if (userData) {
           dispatch(login({ userData }));
+          dispatch(addMyPosts(userData.$id));
         } else {
           dispatch(logout());
         }
