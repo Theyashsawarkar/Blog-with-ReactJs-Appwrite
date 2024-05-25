@@ -1,25 +1,33 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { CCard, CCardBody, CCardImage, CCardTitle } from "@coreui/react";
+import { useNavigate } from "react-router-dom";
 import appwriteService from "../appwrite/config.js";
+import { Button } from "../components";
 
 function PostCard({ $id, title, featuredImage }) {
+  const navigate = useNavigate();
   return (
-    <Link to={`/post/${$id}`}>
-      <div className=" flex p-5 flex-col box-border h-[30vh] justify-around items-center hover:bg-gray-950 duration-200 bg-black border-gray-500 border text-white rounded-xl">
-        <h2 className="text-xl h-auto font-bold overflow-hidden w-[80%] font-serif">
-          {title.length > 50 ? title.slice(0, 42) + "..." : title}
-        </h2>
-        {featuredImage && (
-          <div className="overflow-hidden box-border w-2/3 ">
-            <img
-              src={appwriteService.getFilePreview(featuredImage)}
-              alt={title}
-              className=" outline mb-1 my-1 rounded-xl mx-auto object-contain"
-            />
-          </div>
-        )}
-      </div>
-    </Link>
+    <CCard
+      className="text-white flex flex-col justify-center items-start border rounded-2xl p-5"
+      style={{ width: "18rem", height: "18rem" }}
+    >
+      {featuredImage && (
+        <CCardImage
+          className="rounded-2xl outline"
+          orientation="top"
+          src={appwriteService.getFilePreview(featuredImage)}
+        />
+      )}
+      <CCardBody>
+        <CCardTitle className=" font-semibold my-3">{title}</CCardTitle>
+        <Button
+          className=" hover:font-semibold duration-300 font-serif bg-[#f97316] hover:bg-white text-black rounded-lg px-2 py-1"
+          shouldPreventDefault={true}
+          clickHandler={() => navigate(`/post/${$id}`)}
+          name={"Read More.."}
+        />
+      </CCardBody>
+    </CCard>
   );
 }
 

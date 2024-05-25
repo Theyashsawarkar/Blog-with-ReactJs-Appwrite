@@ -4,21 +4,18 @@ import { PostCard } from "../components";
 
 function MyPosts() {
   const myPosts = useSelector((state) => state.post.myPosts);
-  return myPosts.length === 0 ? (
-    <div className="my-5 justify-center flex items-center">
-      <img
-        className="w-[20%] my-[8%] rounded-2xl"
-        src={empty_meme}
-        alt="emtpy_meme"
-      />
-    </div>
-  ) : (
-    <div className="w-[80%] mx-auto min-h-screen pt-32 flex flex-wrap justify-center items-center ">
-      {myPosts.map((post) => (
-        <div key={post.$id} className="p-2 w-1/4">
-          <PostCard {...post} />
-        </div>
-      ))}
+  console.log(myPosts);
+  return (
+    <div className="flex justify-center items-center my-[10%] min-h-[50vh] gap-5 flex-wrap mx-auto w-[80%] ">
+      {myPosts.length === 0 ? (
+        <img
+          className="w-[20%] ml-[5%] my-[8%] rounded-2xl"
+          src={empty_meme}
+          alt="emtpy_meme"
+        />
+      ) : (
+        myPosts.map((post) => <PostCard key={post.$id} {...post} />)
+      )}
     </div>
   );
 }
