@@ -40,7 +40,7 @@ export class Service {
         }
       );
     } catch (error) {
-      console.log("error while creating the post", error);
+      console.log("config :: createPost", error);
     }
   }
 
@@ -63,7 +63,7 @@ export class Service {
         }
       );
     } catch (error) {
-      console.log("error while updating the post", error);
+      console.log("config :: updatePost", error);
     }
   }
 
@@ -76,7 +76,7 @@ export class Service {
       );
       return true;
     } catch (error) {
-      console.log("error while deleting the post", error);
+      console.log("config :: deletePost", error);
       return false;
     }
   }
@@ -89,7 +89,7 @@ export class Service {
         slug
       );
     } catch (error) {
-      console.log("error while geting the single post", error);
+      console.log("config :: getPost", error);
       return false;
     }
   }
@@ -102,7 +102,7 @@ export class Service {
         queries
       );
     } catch (error) {
-      console.log("error while geting the posts", error);
+      console.log("config :: getPosts", error);
       return false;
     }
   }

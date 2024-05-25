@@ -11,7 +11,6 @@ function Options() {
       {dsaTopics.map((topic) => (
         <Button
           clickHandler={() => {
-            console.log(topic);
             dispatch(addActivePosts(topic));
           }}
           key={topic}

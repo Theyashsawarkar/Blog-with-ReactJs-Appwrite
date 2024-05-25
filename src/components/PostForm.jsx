@@ -18,7 +18,6 @@ export default function PostForm({ post }) {
   useEffect(() => setLoading(false), [loading]);
 
   const userData = useSelector((state) => state.auth.userData);
-  console.log("userdata :: postForm", userData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
