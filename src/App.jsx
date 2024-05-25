@@ -39,12 +39,10 @@ function App() {
   });
 
   return !loading ? (
-    <div className="m-0 min-h-screen flex flex-wrap content-between bg-black">
-      <div className="w-full h-auto overflow-auto mx-auto block">
-        <Header />
-        <Outlet />
-        <Footer />
-      </div>
+    <div className="m-0 min-h-screen h-auto w-screen flex flex-wrap content-between bg-black">
+      <Header />
+      <Outlet />
+      <Footer />
     </div>
   ) : (
     <div className="w-[80vw] mx-auto h-[90vh] flex justify-center items-center">

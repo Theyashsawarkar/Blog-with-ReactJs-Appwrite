@@ -8,12 +8,16 @@ function Home() {
   const dispatch = useDispatch();
   dispatch(addActivePosts("Array"));
   return (
-    <div className="w-full min-h-[50vh] h-auto flex flex-col items-center">
-      <img src={logo} alt="logo" width={500} className=" mt-[-5rem] " />
-      <span className="text-white text-3xl mt-[-5rem]">
+    <div className="w-full h-auto flex flex-col justify-start items-center">
+      <img
+        src={logo}
+        alt="logo"
+        className="md:w-[40%] sm:w-[45%] lg:w-[30%] "
+      />
+      <span className="text-white text-[1.1rem] md:text-[1.5rem] lg:text-[2rem] text-3xl mt-[-6rem]">
         Your Roadmap to DSA Mastery
       </span>
-      <h1 className="text-center text-white text-[4rem] mt-1 mb-1 font-serif w-full font-bold">
+      <h1 className="text-center text-white text-[1.5rem] md:text-[2rem] lg:text-[4rem] mt-1 mb-1 font-serif w-full font-bold">
         {"It's"} <span className="text-[#f97316]">Simpler </span> than You Think
       </h1>
       <Options />

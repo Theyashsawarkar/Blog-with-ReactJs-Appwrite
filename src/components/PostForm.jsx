@@ -84,9 +84,9 @@ export default function PostForm({ post }) {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className=" items-center gap-5 flex w-[90vw] min-h-[90vh] mx-auto"
+      className=" items-center gap-5 flex flex-wrap mt-[10vh] lg:mt-0  lg:flex-nowrap w-[90%] justify-center min-h-[90vh] "
     >
-      <div className="w-[50%]">
+      <div className=" w-[90%] lg:w-[50%]">
         <Input
           label="Title :"
           placeholder="Title"
@@ -101,7 +101,7 @@ export default function PostForm({ post }) {
           defaultValue={getValues("description")}
         />
       </div>
-      <div className="w-[50%]">
+      <div className=" w-[90%] lg:w-[50%]">
         <textarea
           rows={17}
           label="Code :"

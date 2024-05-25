@@ -45,7 +45,7 @@ function Header() {
                 className={({ isActive }) =>
                   `${
                     isActive
-                      ? "text-[#f97316] font-serif font-bold text-xl duration-200 "
+                      ? "text-[#f97316] font-serif font-bold text-lg md:text-xl duration-200 "
                       : ""
                   } inline-bock mx-2 duration-200 hover:underline hover:text-xl border-white hover:text-[#f97316] `
                 }
