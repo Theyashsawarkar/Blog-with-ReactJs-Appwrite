@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@coreui/coreui": "^5.0.1",
+    "@coreui/react": "^5.0.0",
     "@reduxjs/toolkit": "^2.2.4",
     "@tinymce/tinymce-react": "^5.0.1",
     "appwrite": "^14.0.1",
