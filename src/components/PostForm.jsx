@@ -46,7 +46,7 @@ export default function PostForm({ post }) {
 
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featuredImage: file ? file.$id : null,
+        featuredImage: file ? file.$id : post.featuredImage,
       });
 
       if (dbPost) {
