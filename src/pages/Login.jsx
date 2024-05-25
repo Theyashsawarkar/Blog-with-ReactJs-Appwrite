@@ -1,7 +1,7 @@
 import { Login } from "../components";
 function LoginPage() {
   return (
-    <div className="py-8 my-40">
+    <div className="w-screen h-screen flex justify-center items-center">
       <Login />
     </div>
   );

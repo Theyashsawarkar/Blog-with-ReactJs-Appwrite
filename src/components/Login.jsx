@@ -14,8 +14,10 @@ function Login() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
   const [clicked, setClicked] = useState("Sign in");
+  const [upLoading, setUpLoading] = useState(false);
 
   const login = async (data) => {
+    setUpLoading(true);
     setClicked("Signing In...");
     setError("");
     try {
@@ -90,10 +92,12 @@ function Login() {
               shouldPreventDefault={false}
               clickHandler={() => {
                 setClicked("All feilds are required");
-                let timeOut = setTimeout(() => {
-                  setClicked("Sign in");
-                  clearTimeout(timeOut);
-                }, 3000);
+                if (!upLoading) {
+                  let timeOut = setTimeout(() => {
+                    setClicked("Sign in");
+                    clearTimeout(timeOut);
+                  }, 3000);
+                }
               }}
               type="submit"
               name={clicked}
