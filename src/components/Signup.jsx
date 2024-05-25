@@ -96,7 +96,7 @@ function Signup() {
               let timeOut = setTimeout(() => {
                 setClicked("Create Account");
                 clearTimeout(timeOut);
-              }, 3000);
+              }, 5000);
             }}
             name={clicked}
           />
