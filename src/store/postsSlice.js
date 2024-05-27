@@ -40,13 +40,9 @@ const postsSlice = createSlice({
       }
     },
     deletePost: (state, action) => {
-      console.log("allPosts :: before", state.allPosts);
-      console.log("payload", action.payload);
-
       state.activePosts = state.activePosts.filter(post => post.$id !== action.payload)
       state.myPosts = state.myPosts.filter(post => post.$id !== action.payload)
       state.allPosts = state.allPosts.filter(post => post.$id !== action.payload)
-      console.log("allPosts :: after", state.allPosts);
     }
   },
 });
