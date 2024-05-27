@@ -14,7 +14,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // get the current user if loged in
+    // get the current user if logged in
     authService
       .getCurrentUser()
       .then((userData) => {
@@ -31,7 +31,7 @@ function App() {
       .then((postsList) => postsList.documents)
       .then((posts) => dispatch(addPosts({ posts })))
       .catch((error) =>
-        console.log("error while featching all the posts :: App ", error)
+        console.log("error while fetching all the posts :: App ", error)
       )
       .finally(() => setLoading(false));
     [];
