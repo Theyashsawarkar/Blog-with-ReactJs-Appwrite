@@ -1,17 +1,20 @@
 import parse from "html-react-parser";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import appwriteService from "../appwrite/config";
 import { Button, Container } from "../components";
+import { deletePost as deleteMyPost } from "../store/postsSlice.js"
 
 export default function Post() {
   const [copy, setCopy] = useState(true);
   const [post, setPost] = useState(null);
   const { slug } = useParams();
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
@@ -30,8 +33,10 @@ export default function Post() {
   const deletePost = () => {
     appwriteService.deletePost(post.$id).then((status) => {
       if (status) {
-        appwriteService.deleteFile(post.featuredImage);
-        navigate("/");
+        post.featuredImage &&
+          appwriteService.deleteFile(post.featuredImage);
+        dispatch(deleteMyPost(post.$id))
+        navigate("/my-posts");
       }
     });
   };
@@ -67,11 +72,10 @@ export default function Post() {
         <div>
           <div className="w-full mb-6">
             <h1
-              className={`${
-                post?.featuredImage
-                  ? "text-2xl text-gray-100 h-auto overflow-hidden font-bold"
-                  : "mt-20 text-2xl text-gray-100 h-auto overflow-hidden font-bold"
-              }`}
+              className={`${post?.featuredImage
+                ? "text-2xl text-gray-100 h-auto overflow-hidden font-bold"
+                : "mt-20 text-2xl text-gray-100 h-auto overflow-hidden font-bold"
+                }`}
             >
               {post.title}
             </h1>

@@ -10,7 +10,7 @@ function MyPosts() {
         <img
           className="w-[20%] ml-[5%] my-[8%] rounded-2xl"
           src={empty_meme}
-          alt="emtpy_meme"
+          alt="empty_meme"
         />
       ) : (
         myPosts.map((post) => <PostCard key={post.$id} {...post} />)
